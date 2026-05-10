@@ -15,7 +15,7 @@ When the user invokes `/git-commit [language]`, analyze staged/unstaged changes 
 ## Conventional Commit Format
 
 ```
-<type>[optional scope]: <description>
+<type>[optional scope]: <subject>
 
 [optional body]
 
@@ -94,29 +94,85 @@ Analyze the diff to determine:
 
 - **Type**: What kind of change is this?
 - **Scope**: What area/module is affected? (use directory or module name)
-- **Description**: One-line summary (present tense, imperative mood, <72 chars)
-- **Body** (optional): Explain "why" for non-trivial changes
+- **Subject**: One-line summary (present tense, imperative mood, <72 chars)
+- **Body**: Explain "why" and "what" for non-trivial changes
+- **Footer**: Breaking changes, issue references
 
 Language rules:
 - Type and scope are ALWAYS in English (e.g., `feat(auth):`)
-- Description and body follow the detected/specified language
+- Subject, body and footer follow the detected/specified language
 
-Examples:
-- English: `feat(auth): add OAuth2 login support`
-- Chinese: `feat(auth): 添加 OAuth2 登录支持`
-- Japanese: `feat(auth): OAuth2 ログインサポートを追加`
+#### Subject Rules
+
+- Must be ≤ 72 characters
+- Use imperative mood ("add" not "added", "fix" not "fixes")
+- Do not end with a period
+- Summarize the core intent of the change
+
+#### Body Rules
+
+- Must be separated from subject by a blank line
+- Use list format, each item starts with `-`
+- Each item **must begin with an imperative verb** (e.g., "add…", "fix…", "update…", "remove…")
+- **Do NOT use colon-separated format** (e.g., ~~"Feature: description"~~, ~~"Impl: content"~~)
+- Describe motivation, key implementation details, or impact scope (3 items max)
+- Each line must not exceed 72 characters
+
+#### Footer Rules
+
+- Must be separated from body by a blank line
+- **BREAKING CHANGE**: If a breaking change exists, must include `BREAKING CHANGE: <description>`, or add `!` after type (e.g., `feat!:`)
+- Other footers use git trailer format (e.g., `Closes #123`, `Refs: #456`)
+
+#### Examples
+
+**English:**
+
+```text
+feat(auth): add OAuth2 login support
+
+- implement Google and GitHub third-party login
+- add user authorization callback handling
+- improve login state persistence logic
+
+Closes #42
+```
+
+**Chinese:**
+
+```text
+feat(auth): 添加 OAuth2 登录支持
+
+- 实现 Google 和 GitHub 第三方登录
+- 添加用户授权回调处理
+- 优化登录状态持久化逻辑
+
+Closes #42
+```
+
+**With BREAKING CHANGE:**
+
+```text
+feat(api)!: redesign authentication API
+
+- migrate from session-based to JWT authentication
+- update all endpoint signatures
+- remove deprecated login methods
+
+BREAKING CHANGE: authentication API has been completely redesigned, all clients must update their integration
+```
 
 ### 6. Confirm with User
 
 Present the proposed commit to the user:
 
 ```
-⚠️ 即将执行 Git Commit
-类型：<type>(<scope>): <description>
-暂存文件：<file list>
-语言：<detected or specified language>
+Proposed Git Commit:
+Message: <type>(<scope>): <subject>
+Staged files: <file list>
+Language: <detected or specified language>
 
-请确认是否继续？
+Proceed? [y/n]
 ```
 
 Wait for explicit confirmation before executing.
@@ -125,9 +181,11 @@ Wait for explicit confirmation before executing.
 
 ```bash
 git commit -m "$(cat <<'EOF'
-<type>[scope]: <description>
+<type>[scope]: <subject>
 
-<optional body>
+<body>
+
+<footer>
 EOF
 )"
 ```
@@ -140,23 +198,13 @@ Show the result:
 git log --oneline -1
 ```
 
-## Breaking Changes
-
-For breaking changes, use `!` after type/scope:
-
-```
-feat!: remove deprecated endpoint
-```
-
-Or add a `BREAKING CHANGE:` footer in the body.
-
 ## Best Practices
 
 - One logical change per commit
 - Present tense: "add" not "added"
 - Imperative mood: "fix bug" not "fixes bug"
 - Reference issues when applicable: `Closes #123`, `Refs #456`
-- Keep description under 72 characters
+- Keep subject under 72 characters
 - If changes are too large or unrelated, suggest splitting
 
 ## Safety Protocol
