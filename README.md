@@ -5,11 +5,14 @@
 ## 安装
 
 ```bash
-# 通过 skills.sh
-npx skills add liao666brant/agent-skills
+# 添加为插件市场源
+claude plugin marketplace add liao666brant/agent-skills
 
-# 通过 Claude Code 插件
-claude plugin add https://github.com/liao666brant/agent-skills
+# 安装插件
+claude plugin install agent-skills
+
+# 或通过 skills.sh
+npx skills add liao666brant/agent-skills
 ```
 
 ## 添加新技能

@@ -1,15 +1,20 @@
 {
-  "schema_version": "1.0",
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "agent-skills",
-  "displayName": "Agent Skills",
   "description": "个人 Claude Code 技能集合",
-  "author": "zcf",
+  "owner": {
+    "name": "liao666brant",
+    "email": "liao666brant@gmail.com"
+  },
   "plugins": [
     {
       "name": "agent-skills",
-      "version": "0.1.0",
-      "description": "个人 Claude Code 技能集合",
-      "path": "."
+      "source": "./",
+      "description": "个人 Claude Code 技能集合 - 包含 title-rename 等实用技能",
+      "author": {
+        "name": "liao666brant"
+      },
+      "category": "productivity"
     }
   ]
 }
