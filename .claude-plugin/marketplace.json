@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "name": "agent-skills",
+  "displayName": "Agent Skills",
+  "description": "个人 Claude Code 技能集合",
+  "author": "zcf",
+  "plugins": [
+    {
+      "name": "agent-skills",
+      "version": "0.1.0",
+      "description": "个人 Claude Code 技能集合",
+      "path": "."
+    }
+  ]
+}
