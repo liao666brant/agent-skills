@@ -40,6 +40,21 @@ When the user invokes `/git-commit [language]`, analyze staged/unstaged changes 
 
 ## Workflow
 
+### Execution Model
+
+The main agent MUST delegate diff analysis and message generation to a **sub-agent using the cheapest available model**. The main agent only handles:
+- Presenting the proposed commit to the user
+- Waiting for confirmation
+- Executing the final `git commit` command
+
+Model selection priority:
+- Claude Code: use `model: "haiku"`
+- Other tools (Copilot, Codex, OpenCode, etc.): use the cheapest/fastest model available, or fall back to inline execution if sub-agent spawning is not supported
+
+The sub-agent prompt should include:
+1. The full workflow steps 1-5 below
+2. Instructions to return a structured result containing: type, scope, subject, body, footer, staged file list, and detected language
+
 ### 1. Check Repository State
 
 ```bash
@@ -151,7 +166,7 @@ BREAKING CHANGE: authentication API has been completely redesigned, all clients 
 
 ### 6. Confirm with User
 
-Present the proposed commit to the user:
+After receiving the sub-agent's result, the main agent presents the proposed commit:
 
 ```
 Proposed Git Commit:
