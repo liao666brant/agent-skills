@@ -40,5 +40,5 @@ description: 技能描述
 
 | 技能 | 说明 |
 |------|------|
+| git-commit | 智能 Git 提交：conventional commits、自动语言检测、可指定语言 |
 | title-rename | 根据对话内容智能重命名会话标题 |
-| example | 技能模板示例 |
