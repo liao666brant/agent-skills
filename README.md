@@ -1,20 +1,20 @@
 # Agent Skills
 
-Personal skills collection for Claude Code.
+个人 Claude Code 技能集合。
 
-## Install
+## 安装
 
 ```bash
-# via skills.sh
+# 通过 skills.sh
 npx skills add liao666brant/agent-skills
 
-# via Claude Code plugin
+# 通过 Claude Code 插件
 claude plugin add https://github.com/liao666brant/agent-skills
 ```
 
-## Adding a New Skill
+## 添加新技能
 
-Create a subdirectory under `skills/` with a `SKILL.md`:
+在 `skills/` 下创建子目录，包含 `SKILL.md` 文件：
 
 ```
 skills/
@@ -22,20 +22,20 @@ skills/
     └── SKILL.md
 ```
 
-`SKILL.md` frontmatter:
+`SKILL.md` frontmatter 格式：
 
 ```yaml
 ---
 name: my-skill
-description: What this skill does
+description: 技能描述
 ---
 ```
 
-Then register it in `plugin.json` under the `skills` array.
+然后在 `plugin.json` 的 `skills` 数组中注册。
 
-## Skills
+## 技能列表
 
-| Skill | Description |
-|-------|-------------|
-| title-rename | Intelligently rename session based on conversation content |
-| example | A template skill demonstrating the correct structure |
+| 技能 | 说明 |
+|------|------|
+| title-rename | 根据对话内容智能重命名会话标题 |
+| example | 技能模板示例 |

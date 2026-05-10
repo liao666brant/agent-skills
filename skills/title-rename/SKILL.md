@@ -5,21 +5,31 @@ description: Intelligently rename the current session based on conversation cont
 
 # /title-rename
 
-When the user invokes `/title-rename`, generate a smart title for the current session based on conversation content.
+When the user invokes `/title-rename`, analyze the current conversation and rename the session with a concise, descriptive title.
 
 ## Workflow
 
-1. Run the rename script via Bash tool with a **timeout of 120 seconds** (the inner claude process needs time to initialize):
+1. Review the conversation history in this session (all user messages and key topics discussed).
 
-```bash
-bash "${CLAUDE_PLUGIN_ROOT}/skills/title-rename/scripts/rename.sh" "$CLAUDE_TRANSCRIPT_PATH"
+2. Determine the primary language used by the user (Chinese, English, etc.).
+
+3. Generate a title following these rules:
+   - 3-8 words, concise and descriptive
+   - Match the user's primary language (Chinese input → Chinese title, etc.)
+   - Focus on the main topic or intent, not implementation details
+   - No quotes, no trailing punctuation
+
+4. Output the generated title to the user, and instruct them to run:
+
+```
+/rename <generated_title>
 ```
 
-2. Report the result to the user.
+## Examples
 
-## Rules
-
-- The generated title MUST match the primary language of the user's messages (Chinese input → Chinese title, English input → English title, etc.)
-- Title should be 3-8 words, concise and descriptive
-- Focus on the main topic/intent, not implementation details
-- If the script exits non-zero, report the error verbatim
+| Conversation Topic | Suggested Title |
+|---|---|
+| Setting up a React project with Tailwind | React Tailwind 项目初始化 |
+| Debugging a Python memory leak | 排查 Python 内存泄漏 |
+| Creating a CLI tool in Rust | Rust CLI 工具开发 |
+| Discussing database schema design | 数据库 Schema 设计讨论 |
