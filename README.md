@@ -1,4 +1,4 @@
-# Agent Skills
+# Agent Tools
 
 个人 Claude Code 技能集合。
 
@@ -6,13 +6,13 @@
 
 ```bash
 # 添加为插件市场源
-claude plugin marketplace add liao666brant/agent-skills
+claude plugin marketplace add liao666brant/agent-tools
 
 # 安装插件
-claude plugin install agent-skills
+claude plugin install agent-tools
 
 # 或通过 skills.sh
-npx skills add liao666brant/agent-skills
+npx skills add liao666brant/agent-tools
 ```
 
 ## 添加新技能

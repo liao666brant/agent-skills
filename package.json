@@ -1,5 +1,5 @@
 {
-  "name": "agent-skills",
+  "name": "agent-tools",
   "version": "0.1.0",
   "description": "Personal skills collection for Claude Code",
   "main": "plugin.json",
