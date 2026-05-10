@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/auto-rename.sh\"",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}
