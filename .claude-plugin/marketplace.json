@@ -1,5 +1,4 @@
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "agent-tools",
   "description": "个人 Claude Code 技能集合",
   "owner": {
