@@ -1,6 +1,6 @@
 ---
 name: git-commit
-description: "Execute git commit with conventional commit message analysis, intelligent staging, and message generation. Use when user asks to commit changes, create a git commit, or mentions \"/git-commit\". Supports: (1) Auto-detecting type and scope from changes, (2) Generating conventional commit messages from diff, (3) Interactive commit with optional type/scope/description overrides, (4) Intelligent file staging for logical grouping"
+description: 'Execute git commit with conventional commit message analysis, intelligent staging, and message generation. Use when user asks to commit changes, create a git commit, or mentions "/git-commit". Supports: (1) Auto-detecting type and scope from changes, (2) Generating conventional commit messages from diff, (3) Interactive commit with optional type/scope/description overrides, (4) Intelligent file staging for logical grouping'
 ---
 
 # Git Commit with Conventional Commits
@@ -69,9 +69,10 @@ git log --oneline -20
 ```
 
 Analyze the language pattern of recent messages:
-- If majority are Chinese → generate Chinese message
-- If majority are English → generate English message
-- If mixed or unclear → default to English
+
+- If more than 50% of recent messages are in Chinese → generate Chinese message
+- If more than 50% of recent messages are in English → generate English message
+- If there is no single language over 50% (mixed or unclear) → default to English
 
 ### 4. Stage Files (if needed)
 
@@ -83,6 +84,7 @@ git add path/to/file1 path/to/file2
 ```
 
 Rules:
+
 - Group logically related changes together
 - **NEVER** stage files that may contain secrets (.env, credentials, private keys)
 - **NEVER** use `git add .` or `git add -A` blindly
@@ -99,30 +101,15 @@ Analyze the diff to determine:
 - **Footer**: Breaking changes, issue references
 
 Language rules:
+
 - Type and scope are ALWAYS in English (e.g., `feat(auth):`)
 - Subject, body and footer follow the detected/specified language
 
-#### Subject Rules
+#### Format Constraints
 
-- Must be ≤ 72 characters
-- Use imperative mood ("add" not "added", "fix" not "fixes")
-- Do not end with a period
-- Summarize the core intent of the change
-
-#### Body Rules
-
-- Must be separated from subject by a blank line
-- Use list format, each item starts with `-`
-- Each item **must begin with an imperative verb** (e.g., "add…", "fix…", "update…", "remove…")
-- **Do NOT use colon-separated format** (e.g., ~~"Feature: description"~~, ~~"Impl: content"~~)
-- Describe motivation, key implementation details, or impact scope (3 items max)
-- Each line must not exceed 72 characters
-
-#### Footer Rules
-
-- Must be separated from body by a blank line
-- **BREAKING CHANGE**: If a breaking change exists, must include `BREAKING CHANGE: <description>`, or add `!` after type (e.g., `feat!:`)
-- Other footers use git trailer format (e.g., `Closes #123`, `Refs: #456`)
+1. **Subject**: Summarize intent in ≤ 72 chars, use imperative verbs ("add" not "added"), no trailing period.
+2. **Body**: Skip a line after subject. Use bullet points (`- `) starting with imperative verbs. Explain "why/what" (max 3 points, ≤ 72 chars/line). Do NOT use colon-separated format (like ~~"Feature: desc"~~).
+3. **Footer**: Skip a line after body. Use standard git trailers (e.g., `Closes #123`) or note breaking changes with `BREAKING CHANGE: <desc>` and add `!` after the commit type (e.g., `feat!:`).
 
 #### Examples
 
