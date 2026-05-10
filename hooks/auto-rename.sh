@@ -40,8 +40,20 @@ try { state = JSON.parse(fs.readFileSync(stateFile, 'utf8')); } catch {}
 // Already renamed — skip
 if (state.renamed) process.exit(0);
 
-// Count valid user prompts from transcript
+// Check if transcript already has a custom-title (user did /rename or skill)
 const lines = fs.readFileSync(transcript, 'utf8').split('\n').filter(Boolean);
+for (const line of lines) {
+  try {
+    const obj = JSON.parse(line);
+    if (obj.type === 'custom-title') {
+      state.renamed = true;
+      fs.writeFileSync(stateFile, JSON.stringify(state));
+      process.exit(0);
+    }
+  } catch {}
+}
+
+// Count valid user prompts from transcript
 let validPrompts = 0;
 for (const line of lines) {
   try {
@@ -93,8 +105,8 @@ const prompt = 'Based on these user messages from a coding session, generate a c
 
 try {
   const title = execSync(
-    'echo ' + JSON.stringify(prompt) + ' | AGENT_TOOLS_INTERNAL=1 claude -p --model haiku',
-    { timeout: 60000, encoding: 'utf8', env: { ...process.env, AGENT_TOOLS_INTERNAL: '1' } }
+    'claude -p --model haiku',
+    { input: prompt, timeout: 60000, encoding: 'utf8', env: { ...process.env, AGENT_TOOLS_INTERNAL: '1' } }
   ).trim().replace(/^[\"'\`]+|[\"'\`\.。]+$/g, '');
 
   if (!title || title.length > 60) process.exit(0);
