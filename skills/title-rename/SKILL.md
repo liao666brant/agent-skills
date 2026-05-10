@@ -5,7 +5,7 @@ description: Intelligently rename the current session based on conversation cont
 
 # /title-rename
 
-When the user invokes `/title-rename`, analyze the current conversation and rename the session with a concise, descriptive title.
+When the user invokes `/title-rename`, analyze the current conversation and rename the session in the background.
 
 ## Workflow
 
@@ -19,11 +19,19 @@ When the user invokes `/title-rename`, analyze the current conversation and rena
    - Focus on the main topic or intent, not implementation details
    - No quotes, no trailing punctuation
 
-4. Output the generated title to the user, and instruct them to run:
+4. Run the rename script in the background via Bash tool:
 
+```bash
+bash "${CLAUDE_PLUGIN_ROOT}/skills/title-rename/scripts/rename.sh" "<generated_title>" &
 ```
-/rename <generated_title>
+
+If `CLAUDE_PLUGIN_ROOT` is not set, use the fallback path:
+
+```bash
+bash "$(find ~/.claude/plugins/cache -path "*/agent-tools/*/skills/title-rename/scripts/rename.sh" 2>/dev/null | head -1)" "<generated_title>" &
 ```
+
+5. Tell the user the new title has been applied.
 
 ## Examples
 
