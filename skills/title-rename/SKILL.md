@@ -5,7 +5,7 @@ description: Intelligently rename the current session based on conversation cont
 
 # /title-rename
 
-When the user invokes `/title-rename`, analyze the current conversation and generate a session title.
+When the user invokes `/title-rename`, analyze the current conversation and automatically rename the session.
 
 ## Workflow
 
@@ -19,13 +19,19 @@ When the user invokes `/title-rename`, analyze the current conversation and gene
    - Focus on the main topic or intent, not implementation details
    - No quotes, no trailing punctuation
 
-4. Output the title and the ready-to-use command for the user to copy:
+4. Run the rename script via Bash tool to apply the title:
 
+```bash
+bash "${CLAUDE_PLUGIN_ROOT}/skills/title-rename/scripts/rename.sh" "<generated_title>"
 ```
-建议标题: <generated_title>
 
-👉 /rename <generated_title>
+If `CLAUDE_PLUGIN_ROOT` is not set, use the fallback:
+
+```bash
+bash "$(find ~/.claude/plugins/cache -path "*/agent-tools/*/skills/title-rename/scripts/rename.sh" 2>/dev/null | head -1)" "<generated_title>"
 ```
+
+5. Tell the user the session has been renamed.
 
 ## Examples
 
@@ -35,7 +41,3 @@ When the user invokes `/title-rename`, analyze the current conversation and gene
 | Debugging a Python memory leak | 排查 Python 内存泄漏 |
 | Creating a CLI tool in Rust | Rust CLI 工具开发 |
 | Discussing database schema design | 数据库 Schema 设计讨论 |
-
-## Note
-
-Session rename requires the built-in `/rename` command which can only be invoked by the user directly. Programmatic rename API is not yet available (tracked in multiple GitHub issues).
