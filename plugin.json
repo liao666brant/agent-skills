@@ -1,0 +1,9 @@
+{
+  "name": "agent-skills",
+  "version": "0.1.0",
+  "displayName": "Agent Skills",
+  "description": "Personal skills collection for Claude Code",
+  "author": "zcf",
+  "license": "MIT",
+  "skills": []
+}
