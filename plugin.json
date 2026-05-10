@@ -5,5 +5,18 @@
   "description": "Personal skills collection for Claude Code",
   "author": "zcf",
   "license": "MIT",
-  "skills": []
+  "skills": [
+    {
+      "id": "example",
+      "name": "Example",
+      "description": "A template skill demonstrating the correct structure",
+      "path": "skills/example/SKILL.md"
+    },
+    {
+      "id": "title-rename",
+      "name": "Title Rename",
+      "description": "Intelligently rename the current session based on conversation content, matching user language",
+      "path": "skills/title-rename/SKILL.md"
+    }
+  ]
 }

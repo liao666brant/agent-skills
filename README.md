@@ -1,13 +1,41 @@
 # Agent Skills
 
-Personal skills plugin for Claude Code.
+Personal skills collection for Claude Code.
 
 ## Install
 
 ```bash
-claude plugin add ./agent-skills
+# via skills.sh
+npx skills add liao666brant/agent-skills
+
+# via Claude Code plugin
+claude plugin add https://github.com/liao666brant/agent-skills
 ```
+
+## Adding a New Skill
+
+Create a subdirectory under `skills/` with a `SKILL.md`:
+
+```
+skills/
+└── my-skill/
+    └── SKILL.md
+```
+
+`SKILL.md` frontmatter:
+
+```yaml
+---
+name: my-skill
+description: What this skill does
+---
+```
+
+Then register it in `plugin.json` under the `skills` array.
 
 ## Skills
 
-(empty — add `.md` files to `skills/` directory)
+| Skill | Description |
+|-------|-------------|
+| title-rename | Intelligently rename session based on conversation content |
+| example | A template skill demonstrating the correct structure |
