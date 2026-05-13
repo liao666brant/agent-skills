@@ -73,8 +73,7 @@ agent-tools/
 │   └── type-inject/         # 独立插件
 │       ├── .claude-plugin/
 │       │   └── plugin.json
-│       ├── skills/
-│       └── commands/
+│       └── skills/
 └── package.json
 ```
 
