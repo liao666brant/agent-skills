@@ -1,8 +1,8 @@
 {
   "name": "agent-tools",
-  "version": "0.1.0",
-  "description": "Personal skills collection for Claude Code",
+  "version": "0.2.0",
+  "description": "Personal Claude Code plugin marketplace",
   "main": "plugin.json",
   "license": "MIT",
-  "keywords": ["claude-code", "plugin", "skills"]
+  "keywords": ["claude-code", "plugin", "skills", "marketplace"]
 }
